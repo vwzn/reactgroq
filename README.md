@@ -29,7 +29,6 @@ A lightning-fast AI chat application built with modern web technologies. Experie
 - **Markdown support** in AI responses
 
 ### 🛠 Developer Experience
-- **TypeScript** support (optional)
 - **ESLint + Prettier** configured
 - **Git hooks** via Husky
 - **Component library** structure
@@ -46,7 +45,7 @@ A lightning-fast AI chat application built with modern web technologies. Experie
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/reactgroq.git
+git clone https://github.com/vwzn/reactgroq.git
 cd reactgroq
 
 # Install dependencies
