@@ -52,26 +52,49 @@ const Team = () => {
                     className="mt-10 text-sm sm:text-base font-light text-white/60 tracking-widest"
                 >
                     © 2025 TEAM INNOVATION
+
                 </motion.p>
-                <motion.p
-                    className="flex items-center justify-center mt-10 gap-2"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.2 }}
-                >
-                    Launch{' '}
-                    <motion.span
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
+                <div className='flex gap-10'>
+
+                    <motion.p
+                        className="flex items-center justify-center mt-10 gap-2"
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: 0.2 }}
                     >
-                        <Link
-                            to="/"
-                            className="text-blue-600 hover:text-purple-600 hover:underline transition-colors"
+                        Launch{' '}
+                        <motion.span
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
                         >
-                            App
-                        </Link>
-                    </motion.span>
-                </motion.p>
+                            <Link
+                                to="/"
+                                className="text-blue-600 hover:text-purple-600 hover:underline transition-colors"
+                            >
+                                App
+                            </Link>
+                        </motion.span>
+                    </motion.p>
+                    <motion.p
+                        className="flex items-center justify-center mt-10 gap-2"
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: 0.2 }}
+                    >
+                        See{' '}
+                        <motion.span
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                        >
+                            <Link
+                                to="/About"
+                                className="text-blue-600 hover:text-purple-600 hover:underline transition-colors"
+                            >
+                                Documentation
+                            </Link>
+                        </motion.span>
+                    </motion.p>
+                </div>
             </div>
 
         </div>

@@ -3,8 +3,8 @@ import { Link } from 'react-router'
 
 function Footer() {
     return (
-        <footer className="mt-12 text-center text-sm text-white">
-            <p className="flex items-center justify-center gap-1">
+        <footer className="flex justify-center gap-15 mt-12 text-center text-sm text-white">
+            <p className="flex items-center justify-center gap-1 mt-3">
                 Powered by{' '}
                 <Link
                     to="https://groq.com"
@@ -23,6 +23,15 @@ function Footer() {
                     className="text-blue-600 hover:text-purple-600 hover:underline transition-colors"
                 >
                     Team Innovation
+                </Link>
+            </p>
+            <p className="flex items-center justify-center gap-1 mt-3">
+                See{' '}       
+                <Link
+                    to="/About"
+                    className="text-blue-600 hover:text-purple-600 hover:underline transition-colors"
+                >
+                    Documentation
                 </Link>
             </p>
         </footer>

@@ -1,10 +1,10 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { requestToGroqAI } from '../utils/groq';
-import Header from '../components/Header';
-import QueryForm from '../components/QueryForm';
-import ResponseSection from '../components/ResponseSection';
-import Footer from '../components/Footer';
+import Header from '../components/app/Header';
+import QueryForm from '../components/app/QueryForm';
+import ResponseSection from '../components/app/ResponseSection';
+import Footer from '../components/app/Footer';
 import Background from '../components/Background';
 import './App.css';
 
@@ -106,15 +106,15 @@ function App() {
   };
 
   return (
-    <motion.div 
+    <motion.div
       className="min-h-screen"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
       <Background />
-      
-      <motion.div 
+
+      <motion.div
         className="container mx-auto px-4 py-8 max-w-4xl absolute inset-0 z-10"
         variants={containerVariants}
         initial="hidden"
