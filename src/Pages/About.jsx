@@ -115,24 +115,10 @@ const About = () => {
                         />
                     </StepSection>
 
+
                     {/* Step 3 */}
                     <StepSection
                         stepNumber={3}
-                        title="Setup Environment"
-                        description="Tambahkan API key ke file environment (.env) project Anda:"
-                        code="VITE_GROQ=your_api_key_here"
-                    >
-                        <StepCard
-                            icon={<Code2 className="w-5 h-5" />}
-                            title="Konfigurasi"
-                            content="Pastikan file .env ditambahkan ke .gitignore untuk keamanan."
-                            color="blue"
-                        />
-                    </StepSection>
-
-                    {/* Step 4 */}
-                    <StepSection
-                        stepNumber={4}
                         title="Instalasi Package"
                         description="Install package yang diperlukan menggunakan npm atau yarn:"
                         code="npm install groq-sdk"
@@ -146,9 +132,9 @@ const About = () => {
                         />
                     </StepSection>
 
-                    {/* Step 5 */}
+                    {/* Step 4 */}
                     <StepSection
-                        stepNumber={5}
+                        stepNumber={4}
                         title="Buat Utility Function"
                         description="Buat file utils/groq.js untuk menangani request ke API:"
                         code={`import { Groq } from 'groq-sdk';
@@ -201,9 +187,9 @@ export const requestToGroqAI = async (content, apiKey) => {
                         </StepCard>
                     </StepSection>
 
-                    {/* Step 6 */}
+                    {/* Step 5 */}
                     <StepSection
-                        stepNumber={6}
+                        stepNumber={5}
                         title="Jalankan Aplikasi"
                         description="Mulai development server dengan perintah:"
                         code="npm run dev"
