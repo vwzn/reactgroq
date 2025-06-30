@@ -12,10 +12,12 @@ function QueryForm({
     return (
         <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
+                {/* Label input */}
                 <label htmlFor="query" className="block text-sm font-medium text-white">
                     Ask Groq AI anything...
                 </label>
                 <div className="flex flex-col sm:flex-row gap-2">
+                    {/* Input pertanyaan */}
                     <div className="flex-1 relative">
                         <input
                             ref={inputRef}
@@ -28,6 +30,7 @@ function QueryForm({
                             className="w-full p-4 pr-12 rounded-xl shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-100 bg-white bg-opacity-70 backdrop-blur-md border border-white border-opacity-30 text-gray-900 transition-all duration-200 hover:shadow-md focus:shadow-lg"
                             placeholder="Type your question here..."
                         />
+                        {/* Tombol submit (ikon) */}
                         <button
                             type="submit"
                             disabled={isLoading || !input.trim()}
@@ -40,6 +43,7 @@ function QueryForm({
                             )}
                         </button>
                     </div>
+                    {/* Tombol submit untuk mobile */}
                     <button
                         type="submit"
                         disabled={isLoading || !input.trim()}
@@ -53,6 +57,7 @@ function QueryForm({
                         <span>Submit</span>
                     </button>
                 </div>
+                {/* Pesan error jika ada */}
                 {error && (
                     <p className="mt-1 text-sm text-red-600 animate-pulse">
                         {error}

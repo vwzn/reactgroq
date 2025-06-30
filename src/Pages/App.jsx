@@ -9,9 +9,11 @@ import Background from '../components/Background';
 import './App.css';
 
 function App() {
-  // Initialize state from localStorage
+  // State untuk menyimpan response dari AI
   const [response, setResponse] = useState("");
+  // State untuk input pertanyaan user
   const [input, setInput] = useState("");
+  // State untuk input pertanyaan user
   const [apiKey, setApiKey] = useState(() => {
     if (typeof window !== 'undefined') {
       return localStorage.getItem('groqApiKey') || "";
@@ -19,10 +21,12 @@ function App() {
     return "";
   });
 
+  // Fungsi validasi API key
   const validateApiKey = (key) => {
     return key && key.length > 30 && key.startsWith('gsk_');
   };
-  
+
+  // State untuk cek apakah API key valid
   const [isApiKeyValid, setIsApiKeyValid] = useState(() => {
     if (typeof window !== 'undefined') {
       const savedKey = localStorage.getItem('groqApiKey');
@@ -31,16 +35,17 @@ function App() {
     return false;
   });
 
+  // State loading, error, dan status copy
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [copied, setCopied] = useState(false);
 
-  // Refs
+  // Ref untuk input dan response
   const inputRef = useRef(null);
   const apiKeyRef = useRef(null);
   const responseRef = useRef(null);
 
-  // Auto-focus appropriate field
+  // Auto-focus ke input yang sesuai (API key atau pertanyaan)
   useEffect(() => {
     if (isApiKeyValid) {
       inputRef.current?.focus();
@@ -49,7 +54,7 @@ function App() {
     }
   }, [isApiKeyValid]);
 
-  // Sync API key to localStorage
+  // Sinkronisasi API key ke localStorage
   useEffect(() => {
     if (typeof window !== 'undefined') {
       if (apiKey && validateApiKey(apiKey)) {
@@ -60,7 +65,7 @@ function App() {
     }
   }, [apiKey]);
 
-  // Reset copied status after 2 seconds
+  // Reset status copied setelah 2 detik
   useEffect(() => {
     if (copied) {
       const timer = setTimeout(() => setCopied(false), 2000);
@@ -68,8 +73,7 @@ function App() {
     }
   }, [copied]);
 
-
-
+  // Handler submit API key
   const handleApiKeySubmit = (e) => {
     e.preventDefault();
     if (validateApiKey(apiKey)) {
@@ -79,6 +83,7 @@ function App() {
     }
   };
 
+  // Handler submit pertanyaan ke AI
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!input.trim()) {
@@ -90,8 +95,10 @@ function App() {
     setError(null);
 
     try {
+      // Kirim request ke Groq AI
       const aiResponse = await requestToGroqAI(input, apiKey);
       setResponse(aiResponse);
+      // Scroll ke response setelah dapat jawaban
       setTimeout(() => {
         responseRef.current?.scrollIntoView({ behavior: 'smooth' });
       }, 100);
@@ -103,6 +110,7 @@ function App() {
     }
   };
 
+  // Handler untuk clear input dan response
   const handleClear = () => {
     setInput("");
     setResponse("");
@@ -110,6 +118,7 @@ function App() {
     inputRef.current?.focus();
   };
 
+  // Handler untuk reset API key
   const handleResetApiKey = () => {
     setApiKey("");
     setIsApiKeyValid(false);
@@ -117,12 +126,14 @@ function App() {
     setError(null);
   };
 
+  // Handler copy response ke clipboard
   const copyToClipboard = () => {
     if (!response) return;
     navigator.clipboard.writeText(response);
     setCopied(true);
   };
 
+  // Handler enter key untuk submit form
   const handleKeyDown = (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
@@ -134,7 +145,7 @@ function App() {
     }
   };
 
-  // Animation variants
+  // Variabel animasi container
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -146,6 +157,7 @@ function App() {
     }
   };
 
+  // Variabel animasi item
   const itemVariants = {
     hidden: { y: 20, opacity: 0 },
     visible: {
@@ -164,6 +176,7 @@ function App() {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
+      {/* Background animasi */}
       <Background />
 
       <motion.div
@@ -176,6 +189,7 @@ function App() {
           <Header />
         </motion.div>
 
+        {/* Jika API key belum valid, tampilkan form input API key */}
         {!isApiKeyValid ? (
           <motion.div
             className="bg-white/10 backdrop-blur-md rounded-lg p-6 shadow-lg"
@@ -206,6 +220,7 @@ function App() {
           </motion.div>
         ) : (
           <>
+            {/* Info API key & tombol ganti key */}
             <motion.div className="flex justify-between items-center mb-4" variants={itemVariants}>
               <span className="text-sm text-white/70">
                 Using API key: {apiKey.substring(0, 5)}...{apiKey.substring(apiKey.length - 4)}
@@ -219,6 +234,7 @@ function App() {
             </motion.div>
 
             <motion.div className="space-y-6" variants={containerVariants}>
+              {/* Form input pertanyaan */}
               <motion.div variants={itemVariants}>
                 <QueryForm
                   input={input}
@@ -231,6 +247,7 @@ function App() {
                 />
               </motion.div>
 
+              {/* Tampilkan response jika ada */}
               <AnimatePresence>
                 {response && (
                   <motion.div
@@ -253,7 +270,8 @@ function App() {
             </motion.div>
           </>
         )}
-
+        
+        {/* Footer aplikasi */}
         <motion.div variants={itemVariants}>
           <Footer />
         </motion.div>

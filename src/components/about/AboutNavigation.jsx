@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router'; 
 
 const AboutNavigation = ({ title = "About App" }) => {
+    // Daftar item navigasi
     const navItems = [
         { to: "/", label: "App", className: "text-blue-400 hover:text-purple-400" },
         { to: "/Team", label: "Team", className: "text-blue-400 hover:text-purple-400" },
@@ -17,10 +18,11 @@ const AboutNavigation = ({ title = "About App" }) => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
+            // Navigasi sticky di atas dengan efek blur dan border
             className="fixed top-0 left-0 w-full bg-black/20 backdrop-blur-md z-30 py-2 px-4 sm:py-3 md:py-4 sm:px-6 md:px-8 flex flex-col sm:flex-row justify-between items-center border-b border-gray-700/50 shadow-lg"
             role="banner" 
         >
-            {/* Title */}
+            {/* Judul halaman */}
             <motion.h1 
                 initial={{ scale: 0.9 }}
                 animate={{ scale: 1 }}
@@ -30,7 +32,7 @@ const AboutNavigation = ({ title = "About App" }) => {
                 {title}
             </motion.h1>
             
-            {/* Navigation Links */}
+            {/* Link navigasi */}
             <nav 
                 className="flex space-x-3 sm:space-x-4 md:space-x-6 mt-1 sm:mt-0"
                 aria-label="Main navigation" 

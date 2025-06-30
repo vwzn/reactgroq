@@ -16,6 +16,7 @@ function ResponseSection({
                     AI Response
                 </h2>
                 <div className="flex gap-2">
+                     {/* Tombol copy */}
                     <button
                         onClick={copyToClipboard}
                         disabled={!response}
@@ -28,6 +29,7 @@ function ResponseSection({
                             <Copy className="w-5 h-5 text-white" />
                         )}
                     </button>
+                    {/* Tombol clear */}
                     <button
                         onClick={handleClear}
                         className="p-2 bg-white bg-opacity-70 hover:bg-opacity-90 backdrop-blur-md rounded-lg shadow-sm hover:shadow-md transition-all duration-200"

@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 
 const StepCard = ({ icon, title, content, color = 'blue', children }) => {
+    // Kelas warna untuk berbagai tema step
     const colorClasses = {
         blue: 'from-blue-500/20 to-blue-700/20 text-blue-400 border-blue-500/30',
         yellow: 'from-yellow-500/20 to-yellow-700/20 text-yellow-400 border-yellow-500/30',
@@ -11,6 +12,7 @@ const StepCard = ({ icon, title, content, color = 'blue', children }) => {
 
     return (
         <motion.div
+            // Kartu step dengan animasi dan warna dinamis
             className="sm:w-5/6 md:w-full lg:w-11/12 xl:w-5/6 bg-gradient-to-br from-gray-900/80 via-gray-900/70 to-gray-900/80 backdrop-blur-sm p-5 sm:p-6 rounded-xl border shadow-lg hover:shadow-xl transition-all duration-300"
             style={{
                 backgroundImage: colorClasses[color],
@@ -19,22 +21,23 @@ const StepCard = ({ icon, title, content, color = 'blue', children }) => {
             whileInView={{ x: 0, opacity: 1, scale: 1 }}
             initial={{ x: 50, opacity: 0, scale: 0.95 }}
             whileHover={{ scale: 1.02, zIndex: 10 }}
-            transition={{ 
-                type: "spring", 
+            transition={{
+                type: "spring",
                 stiffness: 150,
                 damping: 15,
                 delay: 0.1
             }}
             viewport={{ once: true, margin: "0px 0px -50px 0px" }}
         >
+            {/* Header step: ikon dan judul */}
             <div className={`flex items-center gap-3 ${colorClasses[color].split(' ')[2]} mb-3`}>
-                <motion.div 
+                <motion.div
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
                 >
                     {icon}
                 </motion.div>
-                <motion.span 
+                <motion.span
                     className="font-mono text-sm sm:text-base font-semibold"
                     initial={{ opacity: 0, x: -5 }}
                     animate={{ opacity: 1, x: 0 }}
@@ -43,9 +46,10 @@ const StepCard = ({ icon, title, content, color = 'blue', children }) => {
                     {title}
                 </motion.span>
             </div>
-            
+
+            {/* Konten utama step */}
             {content && (
-                <motion.p 
+                <motion.p
                     className="text-gray-300 text-xs sm:text-sm leading-relaxed"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -54,7 +58,8 @@ const StepCard = ({ icon, title, content, color = 'blue', children }) => {
                     {content}
                 </motion.p>
             )}
-            
+
+            {/* Konten tambahan (children) */}
             {children && (
                 <motion.div
                     initial={{ opacity: 0, y: 10 }}

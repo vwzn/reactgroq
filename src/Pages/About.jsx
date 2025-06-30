@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { Code, Code2, Terminal, Key, Package, Play } from 'lucide-react';
+import { Code, Terminal, Key, Package, Play } from 'lucide-react';
 
 import { Image1, Image3 } from '../assets';
 import Background from '../components/Background';
@@ -10,15 +10,20 @@ import StepCard from '../components/about/StepCard';
 import DependenciesList from '../components/about/DependenciesList';
 
 const About = () => {
+    // Ref untuk container utama (untuk animasi scroll)
     const containerRef = useRef(null);
+
+    // Scroll progress untuk animasi background
     const { scrollYProgress } = useScroll({
         target: containerRef,
         offset: ["start start", "end end"]
     });
 
+    // Animasi scale dan opacity background saat scroll
     const backgroundScale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
     const backgroundOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0.8]);
 
+    // Variabel animasi stagger container
     const staggerContainer = {
         hidden: { opacity: 0 },
         visible: {
@@ -32,8 +37,9 @@ const About = () => {
 
     return (
         <div className="relative min-h-screen" ref={containerRef}>
+            {/* Background animasi */}
             <motion.div
-                style={{ 
+                style={{
                     scale: backgroundScale,
                     opacity: backgroundOpacity
                 }}
@@ -42,8 +48,10 @@ const About = () => {
                 <Background />
             </motion.div>
 
+            {/* Navigasi halaman About */}
             <AboutNavigation />
 
+            {/* Konten utama About */}
             <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 z-10 pt-28 md:pt-32">
                 <motion.div
                     initial="hidden"
@@ -51,12 +59,12 @@ const About = () => {
                     variants={staggerContainer}
                     className="space-y-24 md:space-y-32 pb-24 md:pb-32"
                 >
-                    {/* Introduction section */}
+                    {/* Section: Apa itu Groq AI */}
                     <motion.section
                         variants={{
                             hidden: { opacity: 0, y: 20 },
-                            visible: { 
-                                opacity: 1, 
+                            visible: {
+                                opacity: 1,
                                 y: 0,
                                 transition: { duration: 0.6 }
                             }
@@ -84,7 +92,7 @@ const About = () => {
                         </motion.div>
                     </motion.section>
 
-                    {/* Step 1 */}
+                    {/* Step 1: Daftar di Groq */}
                     <StepSection
                         stepNumber={1}
                         title="Daftar di Groq"
@@ -99,7 +107,7 @@ const About = () => {
                         />
                     </StepSection>
 
-                    {/* Step 2 */}
+                    {/* Step 2: Buat API Key */}
                     <StepSection
                         stepNumber={2}
                         title="Buat API Key"
@@ -116,7 +124,7 @@ const About = () => {
                     </StepSection>
 
 
-                    {/* Step 3 */}
+                    {/* Step 3: Instalasi Package */}
                     <StepSection
                         stepNumber={3}
                         title="Instalasi Package"
@@ -132,7 +140,7 @@ const About = () => {
                         />
                     </StepSection>
 
-                    {/* Step 4 */}
+                    {/* Step 4: Buat Utility Function */}
                     <StepSection
                         stepNumber={4}
                         title="Buat Utility Function"
@@ -187,7 +195,7 @@ export const requestToGroqAI = async (content, apiKey) => {
                         </StepCard>
                     </StepSection>
 
-                    {/* Step 5 */}
+                    {/* Step 5: Jalankan Aplikasi */}
                     <StepSection
                         stepNumber={5}
                         title="Jalankan Aplikasi"
@@ -208,12 +216,13 @@ export const requestToGroqAI = async (content, apiKey) => {
                             </p>
                         </StepCard>
                     </StepSection>
-
+                    
+                    {/* List dependencies yang digunakan */}
                     <motion.div
                         variants={{
                             hidden: { opacity: 0, y: 30 },
-                            visible: { 
-                                opacity: 1, 
+                            visible: {
+                                opacity: 1,
                                 y: 0,
                                 transition: { duration: 0.6 }
                             }

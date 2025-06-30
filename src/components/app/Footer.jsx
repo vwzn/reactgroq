@@ -1,9 +1,10 @@
 import { Sparkles } from 'lucide-react'
-import { Link } from 'react-router' 
+import { Link } from 'react-router'
 
 function Footer() {
     return (
         <footer className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-15 py-4 sm:py-15 text-center text-xs sm:text-sm text-white">
+            {/* Powered by Groq */}
             <p className="flex items-center justify-center gap-1">
                 Powered by{' '}
                 <Link
@@ -16,9 +17,10 @@ function Footer() {
                     Groq AI
                 </Link>
             </p>
-            
+
+            {/* Dibuat oleh tim */}
             <p className="flex items-center justify-center gap-1">
-                Built by{' '}       
+                Built by{' '}
                 <Link
                     to="/Team"
                     className="text-blue-600 hover:text-purple-600 hover:underline transition-colors"
@@ -26,9 +28,10 @@ function Footer() {
                     Team Innovation
                 </Link>
             </p>
-            
+
+            {/* Link ke dokumentasi */}
             <p className="flex items-center justify-center gap-1">
-                See{' '}       
+                See{' '}
                 <Link
                     to="/About"
                     className="text-blue-600 hover:text-purple-600 hover:underline transition-colors"
