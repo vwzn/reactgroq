@@ -1,16 +1,27 @@
-import { Sparkles } from 'lucide-react';
+import React from 'react';
 
 function Header() {
     return (
         <header className="flex justify-between items-center mb-8">
             <div className="flex items-center gap-3">
-                {/* Ikon Groq AI */}
-                <div className="p-2 bg-white bg-opacity-70 backdrop-blur-md rounded-xl shadow-sm">
-                    <Sparkles className="w-6 h-6 text-blue-600" />
-                </div>
+                {/* Logo Groq AI */}
+                <a
+                    href="https://groq.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2 bg-white bg-opacity-70 backdrop-blur-md rounded-xl shadow-sm flex items-center"
+                    aria-label="Groq AI"
+                >
+                    <img
+                        src="https://groq.com/wp-content/uploads/2024/03/PBG-mark1-color.svg"
+                        alt="Powered by Groq for fast inference."
+                        className="w-7 h-7 sm:w-8 sm:h-8 object-contain"
+                        style={{ minWidth: 24, minHeight: 24 }}
+                    />
+                </a>
                 {/* Judul aplikasi */}
-                <h1 className="text-2xl sm:text-3xl font-bold text-white bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
-                    React JS + Groq AI
+                <h1 className="text-base sm:text-2xl md:text-3xl font-semibold sm:font-bold tracking-tight text-white bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-blue-600">
+                    Groq<span className="font-light ml-3 text-gray-200">AI</span><span className="hidden sm:inline"> Playground</span>
                 </h1>
             </div>
         </header>
