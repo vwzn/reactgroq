@@ -6,58 +6,123 @@ const StepSection = ({ stepNumber, title, description, image, code, reverse = fa
             initial="hidden"
             whileInView="whileInView"
             variants={{
-                hidden: { opacity: 0, y: 50 },
+                hidden: { opacity: 0 },
                 whileInView: {
                     opacity: 1,
-                    y: 0,
                     transition: {
-                        duration: 0.6,
-                        ease: "easeOut"
+                        staggerChildren: 0.2,
+                        delayChildren: 0.1
                     }
                 }
             }}
-            viewport={{ once: true, margin: "0px 0px -100px 0px" }}
-            className={`min-h-screen flex flex-col ${reverse ? 'md:flex-row-reverse' : 'md:flex-row'} gap-8 items-center`}
+            viewport={{ once: true, margin: "0px 0px -50px 0px" }}
+            className={`min-h-[80vh] sm:min-h-screen flex flex-col ${reverse ? 'md:flex-row-reverse' : 'md:flex-row'} gap-6 md:gap-12 items-center justify-center py-12 px-4 sm:px-8`}
         >
+            {/* Content Column */}
             <motion.div
-                className="md:w-1/2"
-                whileInView={{ x: 0, opacity: 1 }}
-                initial={{ x: reverse ? 50 : -50, opacity: 0 }}
-                transition={{ type: "spring", stiffness: 100 }}
-                viewport={{ once: true, margin: "0px 0px -100px 0px" }}
+                className="w-full md:w-1/2 max-w-2xl"
+                variants={{
+                    hidden: { x: reverse ? 50 : -50, opacity: 0 },
+                    whileInView: { 
+                        x: 0, 
+                        opacity: 1,
+                        transition: { 
+                            type: "spring", 
+                            stiffness: 120,
+                            damping: 12
+                        }
+                    }
+                }}
             >
-                <div className="flex items-center gap-3 mb-4">
-                    <div className="bg-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold shadow-md">
+                <motion.div 
+                    className="flex items-center gap-3 mb-4"
+                    variants={{
+                        hidden: { opacity: 0, y: 10 },
+                        whileInView: { opacity: 1, y: 0 }
+                    }}
+                >
+                    <motion.div 
+                        className="bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold shadow-lg"
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                    >
                         {stepNumber}
-                    </div>
-                    <h3 className="text-xl font-medium text-white">{title}</h3>
-                </div>
-                <p className="text-gray-200 mb-4">{description}</p>
+                    </motion.div>
+                    <motion.h3 
+                        className="text-2xl sm:text-3xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-purple-300"
+                        variants={{
+                            hidden: { opacity: 0, x: -10 },
+                            whileInView: { opacity: 1, x: 0 }
+                        }}
+                    >
+                        {title}
+                    </motion.h3>
+                </motion.div>
+
+                <motion.p 
+                    className="text-gray-300 mb-6 text-base sm:text-lg leading-relaxed"
+                    variants={{
+                        hidden: { opacity: 0, y: 10 },
+                        whileInView: { opacity: 1, y: 0 }
+                    }}
+                >
+                    {description}
+                </motion.p>
                 
                 {image && (
                     <motion.div
-                        whileHover={{ scale: 1.03 }}
+                        className="overflow-hidden rounded-xl shadow-2xl border border-gray-700/50 hover:border-blue-500/50 transition-all duration-300"
+                        variants={{
+                            hidden: { opacity: 0, scale: 0.95 },
+                            whileInView: { opacity: 1, scale: 1 }
+                        }}
+                        whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
-                        className="overflow-hidden rounded-lg shadow-xl border border-gray-700"
                     >
-                        <img src={image} alt={title} className="w-full h-auto" />
+                        <img 
+                            src={image} 
+                            alt={title} 
+                            className="w-full h-auto object-contain" 
+                            loading="lazy"
+                        />
                     </motion.div>
                 )}
                 
                 {code && (
                     <motion.div
-                        whileHover={{ scale: 1.03 }}
-                        whileTap={{ scale: 0.98 }}
-                        className="overflow-hidden rounded-lg shadow-lg"
+                        className="mt-6 overflow-hidden rounded-xl shadow-lg"
+                        variants={{
+                            hidden: { opacity: 0, y: 20 },
+                            whileInView: { opacity: 1, y: 0 }
+                        }}
+                        whileHover={{ scale: 1.01 }}
                     >
-                        <pre className="bg-gray-900/90 p-4 rounded-lg text-green-400 text-sm overflow-x-auto border border-gray-700">
+                        <pre className="bg-gray-900/90 p-4 sm:p-6 rounded-xl text-green-400/90 text-xs sm:text-sm overflow-x-auto border border-gray-700/50 font-mono">
                             {code}
                         </pre>
                     </motion.div>
                 )}
             </motion.div>
             
-            {children}
+            {/* Children Content (typically the other column) */}
+            <motion.div 
+                className="w-full md:w-1/2 max-w-2xl"
+                variants={{
+                    hidden: { x: reverse ? -50 : 50, opacity: 0 },
+                    whileInView: { 
+                        x: 0, 
+                        opacity: 1,
+                        transition: { 
+                            type: "spring", 
+                            stiffness: 120,
+                            damping: 12,
+                            delay: 0.2
+                        }
+                    }
+                }}
+            >
+                {children}
+            </motion.div>
         </motion.section>
     );
 };

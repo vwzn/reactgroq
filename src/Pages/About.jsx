@@ -17,13 +17,15 @@ const About = () => {
     });
 
     const backgroundScale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
+    const backgroundOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0.8]);
 
     const staggerContainer = {
         hidden: { opacity: 0 },
         visible: {
             opacity: 1,
             transition: {
-                staggerChildren: 0.2,
+                staggerChildren: 0.15,
+                delayChildren: 0.2
             },
         },
     };
@@ -31,7 +33,10 @@ const About = () => {
     return (
         <div className="relative min-h-screen" ref={containerRef}>
             <motion.div
-                style={{ scale: backgroundScale }}
+                style={{ 
+                    scale: backgroundScale,
+                    opacity: backgroundOpacity
+                }}
                 className="fixed inset-0 w-full h-full"
             >
                 <Background />
@@ -39,30 +44,40 @@ const About = () => {
 
             <AboutNavigation />
 
-            <div className="relative max-w-8xl mx-auto px-4 sm:px-28 py-12 z-10 pt-32">
+            <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 z-10 pt-28 md:pt-32">
                 <motion.div
                     initial="hidden"
                     animate="visible"
                     variants={staggerContainer}
-                    className="space-y-32 pb-32"
+                    className="space-y-24 md:space-y-32 pb-24 md:pb-32"
                 >
                     {/* Introduction section */}
                     <motion.section
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6 }}
-                        viewport={{ once: true, margin: "0px 0px -100px 0px" }}
-                        className="min-h-[80vh] flex flex-col justify-center"
+                        variants={{
+                            hidden: { opacity: 0, y: 20 },
+                            visible: { 
+                                opacity: 1, 
+                                y: 0,
+                                transition: { duration: 0.6 }
+                            }
+                        }}
+                        className="min-h-[60vh] md:min-h-[80vh] flex flex-col justify-center"
                     >
                         <div className="flex items-center gap-3 mb-4">
-                            <Terminal className="text-blue-500 w-6 h-6" />
-                            <h2 className="text-2xl font-semibold text-white">Apa itu Groq AI?</h2>
+                            <motion.div
+                                whileHover={{ rotate: 15 }}
+                                whileTap={{ scale: 0.9 }}
+                            >
+                                <Terminal className="text-blue-500 w-6 h-6" />
+                            </motion.div>
+                            <h2 className="text-2xl md:text-3xl font-semibold text-white">Apa itu Groq AI?</h2>
                         </div>
                         <motion.div
-                            whileHover={{ scale: 1.02 }}
-                            className="bg-gray-900/80 backdrop-blur-md p-6 rounded-xl border border-gray-700 shadow-xl"
+                            whileHover={{ scale: 1.01 }}
+                            whileTap={{ scale: 0.98 }}
+                            className="bg-gray-900/80 backdrop-blur-md p-5 sm:p-6 rounded-xl border border-gray-700 shadow-xl"
                         >
-                            <p className="text-gray-100 leading-relaxed">
+                            <p className="text-gray-100 leading-relaxed text-base sm:text-lg">
                                 Groq adalah platform AI super cepat yang menyediakan akses API ke model bahasa canggih seperti LLaMA 3.
                                 Dengan Groq API, developer bisa mengintegrasikan kemampuan AI mutakhir ke aplikasi mereka dengan latensi rendah dan kecepatan tinggi.
                             </p>
@@ -136,19 +151,53 @@ const About = () => {
                         stepNumber={5}
                         title="Buat Utility Function"
                         description="Buat file utils/groq.js untuk menangani request ke API:"
-                        code={`import { Groq } from 'groq-sdk';\n\nconst groq = new Groq({\n  apiKey: import.meta.env.VITE_GROQ,\n  dangerouslyAllowBrowser: true\n});\n\nexport const requestToGroqAI = async (content) => {\n  const reply = await groq.chat.completions.create({\n    messages: [{ role: "user", content }],\n    model: "llama3-8b-8192"\n  });\n  return reply.choices[0]?.message?.content;\n};`}
+                        code={`import { Groq } from 'groq-sdk';
+
+export const requestToGroqAI = async (content, apiKey) => {
+    // Inisialisasi client
+    const groq = new Groq({
+        apiKey: apiKey,
+        dangerouslyAllowBrowser: true
+    });
+
+    // Request ke API
+    const reply = await groq.chat.completions.create({
+        messages: [{
+            role: "user",
+            content: content
+        }],
+        model: "llama3-8b-8192" // Model default
+    });
+
+    return reply.choices[0].message.content;
+};`}
                     >
                         <StepCard
                             icon={<Code className="w-5 h-5" />}
                             title="Penjelasan Kode"
                             color="pink"
                         >
-                            <ul className="text-gray-200 space-y-2 text-sm">
-                                <li>- <span className="text-blue-300">Groq()</span>: Inisialisasi client Groq</li>
-                                <li>- <span className="text-blue-300">dangerouslyAllowBrowser</span>: Izinkan penggunaan di browser</li>
-                                <li>- <span className="text-blue-300">chat.completions.create()</span>: Method untuk request ke AI</li>
-                                <li>- <span className="text-blue-300">llama3-8b-8192</span>: Model yang digunakan</li>
-                            </ul>
+                            <div className="text-gray-200 space-y-2 text-sm">
+                                <div className="mb-2">
+                                    <span className="text-blue-300 font-mono">Groq()</span>
+                                    <p className="ml-4 mt-1">Membuat instance client dengan konfigurasi dasar</p>
+                                </div>
+
+                                <div className="mb-2">
+                                    <span className="text-blue-300 font-mono">dangerouslyAllowBrowser</span>
+                                    <p className="ml-4 mt-1">Diperlukan untuk eksekusi di sisi browser (perhatikan keamanan API key)</p>
+                                </div>
+
+                                <div className="mb-2">
+                                    <span className="text-blue-300 font-mono">chat.completions.create()</span>
+                                    <p className="ml-4 mt-1">Method inti untuk mengirim permintaan chat completion</p>
+                                </div>
+
+                                <div>
+                                    <span className="text-blue-300 font-mono">llama3-8b-8192</span>
+                                    <p className="ml-4 mt-1">Model default Groq yang cepat dengan konteks 8k token</p>
+                                </div>
+                            </div>
                         </StepCard>
                     </StepSection>
 
@@ -174,7 +223,18 @@ const About = () => {
                         </StepCard>
                     </StepSection>
 
-                    <DependenciesList />
+                    <motion.div
+                        variants={{
+                            hidden: { opacity: 0, y: 30 },
+                            visible: { 
+                                opacity: 1, 
+                                y: 0,
+                                transition: { duration: 0.6 }
+                            }
+                        }}
+                    >
+                        <DependenciesList />
+                    </motion.div>
                 </motion.div>
             </div>
         </div>

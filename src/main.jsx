@@ -6,6 +6,7 @@ import App from './Pages/App'
 import Team from './Pages/Team';
 import About from './Pages/About';
 
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>

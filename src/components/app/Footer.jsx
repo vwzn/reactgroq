@@ -1,10 +1,10 @@
 import { Sparkles } from 'lucide-react'
-import { Link } from 'react-router'
+import { Link } from 'react-router' 
 
 function Footer() {
     return (
-        <footer className="flex justify-center gap-15 mt-12 text-center text-sm text-white">
-            <p className="flex items-center justify-center gap-1 mt-3">
+        <footer className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-15 py-4 sm:py-15 text-center text-xs sm:text-sm text-white">
+            <p className="flex items-center justify-center gap-1">
                 Powered by{' '}
                 <Link
                     to="https://groq.com"
@@ -12,11 +12,12 @@ function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    <Sparkles className="w-4 h-4" />
+                    <Sparkles className="w-3 h-3 sm:w-4 sm:h-4" />
                     Groq AI
                 </Link>
             </p>
-            <p className="flex items-center justify-center gap-1 mt-3">
+            
+            <p className="flex items-center justify-center gap-1">
                 Built by{' '}       
                 <Link
                     to="/Team"
@@ -25,7 +26,8 @@ function Footer() {
                     Team Innovation
                 </Link>
             </p>
-            <p className="flex items-center justify-center gap-1 mt-3">
+            
+            <p className="flex items-center justify-center gap-1">
                 See{' '}       
                 <Link
                     to="/About"
