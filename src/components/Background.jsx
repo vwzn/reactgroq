@@ -1,8 +1,10 @@
 import React from 'react'
+import SplashCursor from './SplashCursor'
 
 const Background = () => {
     return (
         <>
+            <SplashCursor />
             {/* Animated background elements */}
             <div className="fixed inset-0 overflow-hidden pointer-events-none z-0 bg-black">
                 <div className="absolute top-1/4 left-1/4 w-64 h-64 rounded-full bg-blue-200 opacity-20 blur-3xl animate-float"></div>
